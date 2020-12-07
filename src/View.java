@@ -62,6 +62,7 @@ public class View {
     }
 
     public void populateUserSelector(ArrayList<User> users) {
+        userSelector.removeAllItems();
         for (User user : users) {
             userSelector.addItem(user);
         }

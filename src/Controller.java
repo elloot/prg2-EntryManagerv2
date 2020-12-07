@@ -9,16 +9,16 @@ public class Controller {
     private final FileIO fileIO;
     private final String fileName = "entrymanager.obj";
 
-    // TODO: add method to refresh entry list when adding entries as well as users
     // TODO: when saving to file, add all entries and users
+    // TODO: when selecting a new user, show that users first entry
 
     public Controller(EntryManager em, View v, FileIO f) {
         view = v;
         fileIO = f;
         entryManager = em;
         // Add entries and users to JComboBox in view
-        view.populateUserSelector(entryManager.getUsers());
-        view.populateEntrySelector(getUserEntries(getSelectedUser().getId()));
+        refreshUserSelector();
+        refreshEntrySelector();
         // Add listeners to view
         addListeners();
     }
@@ -28,8 +28,8 @@ public class Controller {
         fileIO = f;
         entryManager = readEntryManagerFile();
         // Add entries and users to JComboBox in view
-        view.populateUserSelector(entryManager.getUsers());
-        view.populateEntrySelector(getUserEntries(getSelectedUser().getId()));
+        refreshUserSelector();
+        refreshEntrySelector();
         // Add listeners to view
         addListeners();
         if (!getUserEntries(0).isEmpty()) showSelectedEntry();
@@ -43,9 +43,18 @@ public class Controller {
         addAddUserListener();
     }
 
+    private void refreshUserSelector() {
+        view.populateUserSelector(entryManager.getUsers());
+    }
+
+    private void refreshEntrySelector() {
+        view.populateEntrySelector(getUserEntries(getSelectedUser().getId()));
+    }
+
     private void addCreateUserListener(AddUserView addUserView) {
         addUserView.getCreateUserButton().addActionListener(e -> {
             addUser(addUserView.getNameContent(), addUserView.getEmailContent(), addUserView.getPasswordContent());
+            refreshUserSelector();
         });
     }
 
@@ -130,6 +139,7 @@ public class Controller {
         view.getAddButton().addActionListener(e -> {
             User author = getSelectedUser();
             System.out.println(addEntry(view.getEntryTitle(), view.getEntryContent(), author));
+            refreshEntrySelector();
         });
     }
 
