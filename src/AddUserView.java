@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class AddUserView {
     private JTextArea nameContent;
-    private JPanel addUserViewPanel;
+    private JPanel viewPanel;
     private JTextArea emailContent;
     private JTextArea passwordContent;
     private JButton createUserButton;
@@ -11,7 +11,7 @@ public class AddUserView {
     public AddUserView(String title) {
         JFrame frame = new JFrame(title);
         frame.setPreferredSize(new Dimension(500, 700));
-        frame.setContentPane(this.getAddUserViewPanel());
+        frame.setContentPane(this.getViewPanel());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -34,7 +34,7 @@ public class AddUserView {
         return createUserButton;
     }
 
-    public JPanel getAddUserViewPanel() {
-        return addUserViewPanel;
+    public JPanel getViewPanel() {
+        return viewPanel;
     }
 }
