@@ -22,6 +22,18 @@ public class User implements Serializable {
         }
     }
 
+    public boolean isCorrectPassword(String incomingPassword) {
+        boolean passwordsMatch = false;
+        try {
+            // hash incoming password
+            // compare hash to users password hash
+            passwordsMatch = this.password.equals(toHexString(getSHA(incomingPassword)));
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("Incorrect algoritm: " + e);
+        }
+        return passwordsMatch;
+    }
+
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
