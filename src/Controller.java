@@ -136,7 +136,7 @@ public class Controller {
     }
 
     private void addAddListener() {
-        view.getAddButton().addActionListener(e -> {
+        view.getAddEntryButton().addActionListener(e -> {
             User author = getSelectedUser();
             System.out.println(addEntry(view.getEntryTitle(), view.getEntryContent(), author));
             refreshEntrySelector();

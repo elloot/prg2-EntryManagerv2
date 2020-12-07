@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class View {
     private JPanel ViewPanel;
     private JTextArea entryContent;
-    private JButton addButton;
+    private JButton addEntryButton;
     private JComboBox<User> userSelector;
     private JButton saveToFileButton;
     private JComboBox<Entry> entrySelector;
@@ -46,13 +46,14 @@ public class View {
         this.entryTitle.setText(title);
     }
 
-    public JButton getAddButton() {
-        return addButton;
+    public JButton getAddEntryButton() {
+        return addEntryButton;
     }
 
     public JButton getSaveToFileButton() {
         return saveToFileButton;
     }
+
     public JButton getAddUserButton() {
         return addUserButton;
     }
