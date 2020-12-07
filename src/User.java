@@ -14,7 +14,12 @@ public class User implements Serializable {
         this.name = name;
         this.id = id;
         this.email = email;
-        this.password = password;
+        try {
+            this.password = toHexString(getSHA(password));
+        } catch (NoSuchAlgorithmException e) {
+            this.password = null;
+            System.out.println("Incorrect algorithm: " + e);
+        }
     }
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
