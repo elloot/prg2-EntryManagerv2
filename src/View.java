@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class View {
-    private JPanel ViewPanel;
+    private JPanel viewPanel;
     private JTextArea entryContent;
     private JButton addEntryButton;
     private JComboBox<User> userSelector;
@@ -59,7 +59,7 @@ public class View {
     }
 
     public JPanel getViewPanel() {
-        return ViewPanel;
+        return viewPanel;
     }
 
     public void populateUserSelector(ArrayList<User> users) {
