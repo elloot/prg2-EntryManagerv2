@@ -2,17 +2,19 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Controller {
     private final EntryManager entryManager;
     private final View view;
     private final FileIO fileIO;
     private final String fileName = "entrymanager.obj";
+    private final MySQLHandler mySQLHandler;
 
     // TODO: when saving to file, add all entries and users
     // TODO: when selecting a new user, show that users first entry
 
-    public Controller(EntryManager em, View v, FileIO f) {
+    public Controller(EntryManager em, View v, FileIO f, MySQLHandler m) {
         view = v;
         fileIO = f;
         entryManager = em;
@@ -21,18 +23,31 @@ public class Controller {
         refreshEntrySelector();
         // Add listeners to view
         addListeners();
+
+        // MySQL stuff
+        mySQLHandler = m;
+        ArrayList<Map<String, String>> users = readUsersFromDB();
+        ArrayList<Map<String, String>> entries = readEntriesFromDB();
     }
 
-    public Controller(View v, FileIO f) {
-        view = v;
-        fileIO = f;
-        entryManager = readEntryManagerFile();
-        // Add entries and users to JComboBox in view
-        refreshUserSelector();
-        refreshEntrySelector();
-        // Add listeners to view
-        addListeners();
-        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
+//    public Controller(View v, FileIO f) {
+//        view = v;
+//        fileIO = f;
+//        entryManager = readEntryManagerFile();
+//        // Add entries and users to JComboBox in view
+//        refreshUserSelector();
+//        refreshEntrySelector();
+//        // Add listeners to view
+//        addListeners();
+//        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
+//    }
+
+    private ArrayList<Map<String, String>> readEntriesFromDB() {
+        return mySQLHandler.readEntries();
+    }
+
+    private ArrayList<Map<String, String>> readUsersFromDB() {
+        return mySQLHandler.readUsers();
     }
 
     private void addListeners() {
