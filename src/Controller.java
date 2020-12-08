@@ -28,6 +28,9 @@ public class Controller {
         mySQLHandler = m;
         ArrayList<Map<String, String>> users = readUsersFromDB();
         ArrayList<Map<String, String>> entries = readEntriesFromDB();
+
+        em.populateUsers(users);
+        em.populateEntries(entries);
     }
 
 //    public Controller(View v, FileIO f) {
