@@ -20,6 +20,16 @@ public class Entry implements Serializable {
         logEdit(content, author);
     }
 
+    public Entry(String title, String content, User author, Timestamp createdAt, Timestamp updatedAt) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.edits = new ArrayList<>();
+//        logEdit(content, author);
+    }
+
     public void edit(String content, User author) {
         Edit edit = new Edit(content, author);
         this.content = edit.getContent();
