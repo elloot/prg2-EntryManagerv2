@@ -69,7 +69,7 @@ public class MySQLHandler {
                 entry.put("content", rset.getString("content"));
                 entry.put("createdAt", rset.getString("created_at"));
                 entry.put("updatedAt", rset.getString("updated_at"));
-                entry.put("authorId", rset.getString("author_id"));
+                entry.put("authorID", rset.getString("author_id"));
                 entry.put("title", rset.getString("title"));
                 entries.add(entry);
             }
