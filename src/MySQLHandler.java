@@ -24,6 +24,26 @@ public class MySQLHandler {
         }
     }
 
+    // method for getting AUTO_INCREMENT value
+    // from users table
+    public int getUserIDAIValue() {
+        int AIValue = -1;
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "SELECT `AUTO_INCREMENT`\n" +
+                    "FROM  INFORMATION_SCHEMA.TABLES\n" +
+                    "WHERE TABLE_SCHEMA = 'entry_manager'\n" +
+                    "AND   TABLE_NAME   = 'users';";
+            ResultSet rset = stmt.executeQuery(SQLQuery);
+            rset.next();
+            AIValue = rset.getInt("AUTO_INCREMENT");
+            System.out.println(AIValue);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return AIValue;
+    }
+
     public ArrayList<Map<String, String>> readUsers() {
         try {
             // Setup statement

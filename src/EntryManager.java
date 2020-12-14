@@ -80,6 +80,11 @@ public class EntryManager implements Serializable {
         return user;
     }
 
+    public int updateUserIDCount(int userIDCount) {
+        this.userIDCount = userIDCount;
+        return this.userIDCount;
+    }
+
     public User createUser(int id, String name, String email, String password) {
         if (userIDCount < id + 1) {
             userIDCount = id + 1;

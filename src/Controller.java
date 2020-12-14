@@ -26,6 +26,7 @@ public class Controller {
 
         em.populateUsers(users);
         em.populateEntries(entries);
+        entryManager.updateUserIDCount(getUserIDAIValue());
 
         // Add entries and users to JComboBox in view
         refreshUserSelector();
@@ -45,6 +46,10 @@ public class Controller {
 //        addListeners();
 //        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
 //    }
+
+    private int getUserIDAIValue() {
+        return mySQLHandler.getUserIDAIValue();
+    }
 
     private ArrayList<Map<String, String>> readEntriesFromDB() {
         return mySQLHandler.readEntries();
