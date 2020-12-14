@@ -24,6 +24,16 @@ public class MySQLHandler {
         }
     }
 
+    public void addUser(User user) {
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "INSERT INTO users VALUES (" + user.getId() + ", '" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "')";
+            stmt.executeUpdate(SQLQuery);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // method for getting AUTO_INCREMENT value
     // from users table
     public int getUserIDAIValue() {
