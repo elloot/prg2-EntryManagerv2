@@ -18,16 +18,14 @@ public class Controller {
         view = v;
         fileIO = f;
         entryManager = em;
-
-        // MySQL stuff
         mySQLHandler = m;
-        ArrayList<Map<String, String>> users = readUsersFromDB();
-        ArrayList<Map<String, String>> entries = readEntriesFromDB();
 
-        em.populateUsers(users);
-        em.populateEntries(entries);
-        entryManager.updateUserIDCount(getUserIDAIValue());
-
+        // load all users and entries from database,
+        // update the entry manager's userIDCount
+        // to match that of the database
+        loadUsers();
+        loadEntries();
+        updateUserIDCount();
         // Add entries and users to JComboBox in view
         refreshUserSelector();
         refreshEntrySelector();
@@ -46,6 +44,18 @@ public class Controller {
 //        addListeners();
 //        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
 //    }
+
+    private void updateUserIDCount() {
+        entryManager.updateUserIDCount(getUserIDAIValue());
+    }
+
+    private void loadUsers() {
+        entryManager.populateUsers(readUsersFromDB());
+    }
+
+    private void loadEntries() {
+        entryManager.populateEntries(readEntriesFromDB());
+    }
 
     private int getUserIDAIValue() {
         return mySQLHandler.getUserIDAIValue();
