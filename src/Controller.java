@@ -18,11 +18,6 @@ public class Controller {
         view = v;
         fileIO = f;
         entryManager = em;
-        // Add entries and users to JComboBox in view
-        refreshUserSelector();
-        refreshEntrySelector();
-        // Add listeners to view
-        addListeners();
 
         // MySQL stuff
         mySQLHandler = m;
@@ -31,6 +26,12 @@ public class Controller {
 
         em.populateUsers(users);
         em.populateEntries(entries);
+
+        // Add entries and users to JComboBox in view
+        refreshUserSelector();
+        refreshEntrySelector();
+        // Add listeners to view
+        addListeners();
     }
 
 //    public Controller(View v, FileIO f) {
