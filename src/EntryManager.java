@@ -73,7 +73,7 @@ public class EntryManager implements Serializable {
     }
 
     public User createUser(String name, String email, String password) {
-        int id = userIDCount + 1;
+        int id = userIDCount;
         userIDCount++;
         User user = new User(name, id, email, password);
         users.add(user);
