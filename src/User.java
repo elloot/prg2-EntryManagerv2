@@ -71,6 +71,10 @@ public class User implements Serializable {
         return name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public String toString() {
         return "" + this.name;
