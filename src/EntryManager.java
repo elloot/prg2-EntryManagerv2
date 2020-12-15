@@ -9,12 +9,15 @@ public class EntryManager implements Serializable {
     private final ArrayList<Entry> entries;
     private final ArrayList<User> users;
     private int userIDCount;
+    private int entryIDCount;
     private int newUsersStartingID;
+    private int newEntriesStartingID;
 
     public EntryManager() {
         users = new ArrayList<>();
         entries = new ArrayList<>();
         userIDCount = 0;
+        entryIDCount = 0;
         createUser("default", "default", "default");
     }
 
@@ -32,14 +35,14 @@ public class EntryManager implements Serializable {
     public void populateEntries(ArrayList<Map<String, String>> entries) {
         // add every entry from database
         for (Map<String, String> entry : entries) {
-//            int id = Integer.parseInt(entry.get("id"));
+            int id = Integer.parseInt(entry.get("id"));
             String title = entry.get("title");
             String content = entry.get("content");
             int authorID = Integer.parseInt(entry.get("authorID"));
             User user;
             try {
                 user = getUser(authorID);
-                createEntry(title, content, user);
+                createEntry(id, title, content, user);
             } catch (NullPointerException e) {
                 System.out.println("User with id " + authorID + " not found, " + e);
             }
@@ -51,7 +54,9 @@ public class EntryManager implements Serializable {
     }
 
     public Entry createEntry(String title, String content, User author) {
-        Entry entry = new Entry(title, content, author);
+        int id = entryIDCount;
+        entryIDCount++;
+        Entry entry = new Entry(id, title, content, author);
         entries.add(entry);
         return entry;
     }
@@ -81,9 +86,30 @@ public class EntryManager implements Serializable {
         return user;
     }
 
+    public int getUserIDCount() {
+        return userIDCount;
+    }
+
+    public int getEntryIDCount() {
+        return entryIDCount;
+    }
+
+    public int getNewUsersStartingID() {
+        return newUsersStartingID;
+    }
+
     public int setNewUsersStartingID(int id) {
         this.newUsersStartingID = id;
         return newUsersStartingID;
+    }
+
+    public int getNewEntriesStartingID() {
+        return newEntriesStartingID;
+    }
+
+    public int setNewEntriesStartingID(int id) {
+        this.newEntriesStartingID = id;
+        return newEntriesStartingID;
     }
 
     public int updateUserIDCount(int userIDCount) {
@@ -91,12 +117,23 @@ public class EntryManager implements Serializable {
         return this.userIDCount;
     }
 
+    public int updateEntryIDCount(int entryIDCount) {
+        this.entryIDCount = entryIDCount;
+        return this.entryIDCount;
+    }
+
     public User createUser(int id, String name, String email, String password) {
-        if (userIDCount < id + 1) {
-            userIDCount = id + 1;
-        }
+//        if (userIDCount < id + 1) {
+//            userIDCount = id + 1;
+//        }
         User user = new User(name, id, email, password);
         users.add(user);
         return user;
+    }
+
+    public Entry createEntry(int id, String title, String content, User author) {
+        Entry entry = new Entry(id, title, content, author);
+        entries.add(entry);
+        return entry;
     }
 }
