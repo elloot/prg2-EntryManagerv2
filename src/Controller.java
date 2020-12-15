@@ -28,6 +28,8 @@ public class Controller {
         updateUserIDCount();
         // id to keep track of which users were added this session
         setNewUsersStartingID();
+        updateEntryIDCount();
+        setNewEntriesStartingID();
         // Add entries and users to JComboBox in view
         refreshUserSelector();
         refreshEntrySelector();
@@ -46,6 +48,14 @@ public class Controller {
 //        addListeners();
 //        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
 //    }
+
+    private void setNewEntriesStartingID() {
+        entryManager.setNewEntriesStartingID(mySQLHandler.getEntryIDAIValue());
+    }
+
+    private void updateEntryIDCount() {
+        entryManager.updateEntryIDCount(mySQLHandler.getEntryIDAIValue());
+    }
 
     private void setNewUsersStartingID() {
         entryManager.setNewUsersStartingID(getUserIDAIValue());
@@ -94,6 +104,7 @@ public class Controller {
     private void addCreateUserListener(AddUserView addUserView) {
         addUserView.getCreateUserButton().addActionListener(e -> {
             addUser(addUserView.getNameContent(), addUserView.getEmailContent(), addUserView.getPasswordContent());
+            mySQLHandler.setUserIDAIValue(entryManager.getUserIDCount());
             refreshUserSelector();
         });
     }
@@ -150,8 +161,28 @@ public class Controller {
 
     private void addSaveToFileListener() {
         view.getSaveToFileButton().addActionListener(e -> {
-            writeEntryManagerToFile();
+//            writeEntryManagerToFile();
+            writeEntriesToDB();
+            writeUsersToDB();
         });
+    }
+
+    private void writeEntriesToDB() {
+        ArrayList<Entry> entries = entryManager.getEntries();
+        for (Entry entry : entries) {
+            if (entry.getId() >= entryManager.getNewEntriesStartingID()) {
+                mySQLHandler.addEntry(entry);
+            }
+        }
+    }
+
+    private void writeUsersToDB() {
+        ArrayList<User> users = entryManager.getUsers();
+        for (User user : users) {
+            if (user.getId() >= entryManager.getNewUsersStartingID()) {
+                mySQLHandler.addUser(user);
+            }
+        }
     }
 
     public EntryManager readEntryManagerFile() {
@@ -179,6 +210,7 @@ public class Controller {
         view.getAddEntryButton().addActionListener(e -> {
             User author = getSelectedUser();
             System.out.println(addEntry(view.getEntryTitle(), view.getEntryContent(), author));
+            mySQLHandler.setEntryIDAIValue(entryManager.getEntryIDCount());
             refreshEntrySelector();
         });
     }
