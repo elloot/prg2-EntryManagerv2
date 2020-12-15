@@ -9,23 +9,26 @@ public class Entry implements Serializable {
     private final User author;
     private final ArrayList<Edit> edits;
     private final String title;
+    private final int id;
 
-    public Entry(String title, String content, User author) {
+    public Entry(int id, String title, String content, User author) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.createdAt = EntryManager.getCurrentTime();
         this.updatedAt = EntryManager.getCurrentTime();
+        this.id = id;
         this.edits = new ArrayList<>();
         logEdit(content, author);
     }
 
-    public Entry(String title, String content, User author, Timestamp createdAt, Timestamp updatedAt) {
+    public Entry(int id, String title, String content, User author, Timestamp createdAt, Timestamp updatedAt) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.id = id;
         this.edits = new ArrayList<>();
 //        logEdit(content, author);
     }
@@ -63,6 +66,10 @@ public class Entry implements Serializable {
 
     public User getAuthor() {
         return author;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public ArrayList<Edit> getEdits() {
