@@ -34,6 +34,37 @@ public class MySQLHandler {
         }
     }
 
+    public void addEntry(Entry entry) {
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "INSERT INTO entries VALUES (" + entry.getId() + ", '" + entry.getContent() + "', '" + entry.getCreationDate() + "', '" + entry.getEditDate() + "', " + entry.getAuthor().getId() + ", '" + entry.getTitle() + "')";
+            System.out.println(SQLQuery);
+            stmt.executeUpdate(SQLQuery);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setUserIDAIValue(int AIValue) {
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "ALTER TABLE users AUTO_INCREMENT = " + AIValue;
+            stmt.executeUpdate(SQLQuery);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setEntryIDAIValue(int AIValue) {
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "ALTER TABLE entries AUTO_INCREMENT = " + AIValue;
+            stmt.executeUpdate(SQLQuery);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // method for getting AUTO_INCREMENT value
     // from users table
     public int getUserIDAIValue() {
@@ -47,7 +78,25 @@ public class MySQLHandler {
             ResultSet rset = stmt.executeQuery(SQLQuery);
             rset.next();
             AIValue = rset.getInt("AUTO_INCREMENT");
-            System.out.println(AIValue);
+            System.out.println("User AIvalue: " + AIValue);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return AIValue;
+    }
+
+    public int getEntryIDAIValue() {
+        int AIValue = -1;
+        try {
+            Statement stmt = connection.createStatement();
+            String SQLQuery = "SELECT `AUTO_INCREMENT`\n" +
+                    "FROM  INFORMATION_SCHEMA.TABLES\n" +
+                    "WHERE TABLE_SCHEMA = 'entry_manager'\n" +
+                    "AND   TABLE_NAME   = 'entries';";
+            ResultSet rset = stmt.executeQuery(SQLQuery);
+            rset.next();
+            AIValue = rset.getInt("AUTO_INCREMENT");
+            System.out.println("Entry AIvalue: " + AIValue);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
