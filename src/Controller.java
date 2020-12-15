@@ -26,6 +26,8 @@ public class Controller {
         loadUsers();
         loadEntries();
         updateUserIDCount();
+        // id to keep track of which users were added this session
+        setNewUsersStartingID();
         // Add entries and users to JComboBox in view
         refreshUserSelector();
         refreshEntrySelector();
@@ -44,6 +46,10 @@ public class Controller {
 //        addListeners();
 //        if (!getUserEntries(0).isEmpty()) showSelectedEntry();
 //    }
+
+    private void setNewUsersStartingID() {
+        entryManager.setNewUsersStartingID(getUserIDAIValue());
+    }
 
     private void updateUserIDCount() {
         entryManager.updateUserIDCount(getUserIDAIValue());

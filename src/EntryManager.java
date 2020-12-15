@@ -9,6 +9,7 @@ public class EntryManager implements Serializable {
     private final ArrayList<Entry> entries;
     private final ArrayList<User> users;
     private int userIDCount;
+    private int newUsersStartingID;
 
     public EntryManager() {
         users = new ArrayList<>();
@@ -78,6 +79,11 @@ public class EntryManager implements Serializable {
         User user = new User(name, id, email, password);
         users.add(user);
         return user;
+    }
+
+    public int setNewUsersStartingID(int id) {
+        this.newUsersStartingID = id;
+        return newUsersStartingID;
     }
 
     public int updateUserIDCount(int userIDCount) {
