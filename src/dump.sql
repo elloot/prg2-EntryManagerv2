@@ -30,7 +30,7 @@ CREATE TABLE `entries` (
   `author_id` int unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `entries` (
 
 LOCK TABLES `entries` WRITE;
 /*!40000 ALTER TABLE `entries` DISABLE KEYS */;
-INSERT INTO `entries` VALUES (1,'default','2020-12-08 12:10:29','2020-12-08 12:10:29',1,'default');
+INSERT INTO `entries` VALUES (1,'default','2020-12-08 12:10:29','2020-12-08 12:10:29',1,'default'),(2,'Good content','2020-12-15 12:33:16','2020-12-15 12:33:16',2,'Elliots entry');
 /*!40000 ALTER TABLE `entries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'default','default','default');
+INSERT INTO `users` VALUES (1,'default','default','default'),(2,'Elliot','elliot.duchek@gmail.com','ab6b786aa204199a39492078eab36895cfa6b650d969c79f85a0055d461a0c52');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-08 13:45:41
+-- Dump completed on 2020-12-15 13:46:44
