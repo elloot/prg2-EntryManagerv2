@@ -4,6 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * A controller class that acts as a link between the view, model and database in this project.
+ * This class calls methods in the EntryManager (the model), View (the view) and MySQLHandler (the database
+ * connection) classes to transfer data between them. For example, the controller handles all listeners on the view
+ * to more easily be able to transfer the data in the view to the model.
+ */
+
 public class Controller {
     private final EntryManager entryManager;
     private final View view;
@@ -14,6 +21,15 @@ public class Controller {
     // TODO: when saving to file, add all entries and users
     // TODO: when selecting a new user, show that users first entry
 
+    /**
+     * Creates a new Controller that can read and write data from files as well as a MySQL database and pass data
+     * between a model and a view.
+     * @param em The model the controller will interact with.
+     * @param v The view the controller will interact with.
+     * @param f The file input-output handler that the model will use to write data to files.
+     * @param m The database handler the controller will use to manage reads and writes to the
+     *          database.
+     */
     public Controller(EntryManager em, View v, FileIO f, MySQLHandler m) {
         view = v;
         fileIO = f;
@@ -118,7 +134,8 @@ public class Controller {
 
     private void addUserSelectorListener() {
         view.getUserSelector().addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) view.populateEntrySelector(getUserEntries(getSelectedUser().getId()));
+            if (e.getStateChange() == ItemEvent.SELECTED)
+                view.populateEntrySelector(getUserEntries(getSelectedUser().getId()));
         });
     }
 
@@ -139,6 +156,11 @@ public class Controller {
         return entries.get(index);
     }
 
+    /**
+     * Gets the entries of a specific user.
+     * @param userID The id of the user whose entries will be returned.
+     * @return Returns the entries of the specified user.
+     */
     public ArrayList<Entry> getUserEntries(int userID) {
         ArrayList<Entry> entries = entryManager.getEntries();
         ArrayList<Entry> userEntries = new ArrayList<>();
@@ -167,6 +189,9 @@ public class Controller {
         });
     }
 
+    /**
+     * Writes all the entries currently stored in entryManager to the MySQL database.
+     */
     private void writeEntriesToDB() {
         ArrayList<Entry> entries = entryManager.getEntries();
         for (Entry entry : entries) {
